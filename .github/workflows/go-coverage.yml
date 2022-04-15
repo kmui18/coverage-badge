@@ -1,7 +1,7 @@
 on:
   workflow_dispatch:
 
-name: Go Test
+name: Go Coverage
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -26,18 +26,21 @@ jobs:
         run: |
           make test-coverage
 
-      - name: Go Coverage Badge  # Pass the `coverage.out` output to this action
+      # Pass the `coverage.cov` output to this action
+      - name: Go Coverage Badge
         uses: tj-actions/coverage-badge-go@v1.1
         with:
-          filename: coverage.out
+          filename: coverage.cov
 
+      # Verify percentile of code coverage changed
       - name: Verify Changed files
         uses: tj-actions/verify-changed-files@v9
         id: verify-changed-files
         with:
           files: README.md
 
-      - name: Commit changes
+      # Update coverage badge
+      - name: Commit changes 
         if: steps.verify-changed-files.outputs.files_changed == 'true'
         run: |
           git config --local user.email "action@github.com"
@@ -51,4 +54,3 @@ jobs:
         with:
           github_token: ${{ github.token }}
           branch: ${{ github.head_ref }}
-
