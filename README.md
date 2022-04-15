@@ -1,4 +1,5 @@
 # Go example projects
+![Coverage](https://img.shields.io/badge/Coverage-7.0%25-red)
 
 [![Go Reference](https://pkg.go.dev/badge/golang.org/x/example.svg)](https://pkg.go.dev/golang.org/x/example)
 
